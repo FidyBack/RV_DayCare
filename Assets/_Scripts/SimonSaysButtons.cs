@@ -4,10 +4,33 @@ using UnityEngine;
 
 public class SimonSaysButtons : MonoBehaviour
 {
-    void OnTriggerEnter(Collider c) {
+    // Color for when the button is off
+    [SerializeField]
+    private Color offColor;
+
+    // Color for when the button is on
+    [SerializeField]
+    private Color onColor;
+
+    public void PlayColor()
+    {
+        // Change the color of the button
+        GetComponent<Renderer>().material.color = onColor;
+        // Play the sound
+        GetComponent<AudioSource>().Play();
+
+        // Wait for the sound to finish playing
+        yield return new WaitForSeconds(GetComponent<AudioSource>().clip.length);
+        // Change the color of the button
+        GetComponent<Renderer>().material.color = offColor;
+
     }
 
-    public void PlayColor(){
-        
+    void Start()
+    {
+        // Change the color of the button
+        GetComponent<Renderer>().material.color = offColor;
     }
+
+
 }
