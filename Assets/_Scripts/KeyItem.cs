@@ -8,7 +8,6 @@ public class KeyItem : MonoBehaviour
 {
 
     private bool attached = false;
-    public UnityEvent putOnPlace;
 
     public void Pickup() {
         attached = true;
@@ -19,19 +18,24 @@ public class KeyItem : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider c)
-    {
+    {   
         HandleKeyItem buraco = c.gameObject.GetComponent<HandleKeyItem>();
-        // Debug.Log(gameObject.tag + " " + buraco.key_item + " " + attached);
-        if(gameObject.tag == buraco.key_item.ToString() && !attached) {
-            buraco.has_key = true;
-            Destroy(gameObject.GetComponent<Throwable>());
-            Destroy(gameObject.GetComponent<Interactable>());
-            gameObject.GetComponent<Rigidbody>().useGravity = false;
-            gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            putOnPlace.Invoke();
 
+        if(c.gameObject.tag == "buraco") {
+            if(gameObject.tag == buraco.key_item.ToString() && !attached) {
+                buraco.has_key = true;
+                Destroy(GetComponent<Throwable>());
+                Destroy(GetComponent<Interactable>());
+                GetComponent<Rigidbody>().useGravity = false;
+                GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+                GetComponent<Rigidbody>().isKinematic = true;
+                transform.position = buraco.hole_transform.position;
+                
+                buraco.AddKey();
+
+            }
         }
+
         
     }
 }

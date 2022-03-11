@@ -8,6 +8,7 @@ TagManager:
   - quadrado
   - circulo
   - triangulo
+  - buraco
   layers:
   - Default
   - TransparentFX

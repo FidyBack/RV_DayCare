@@ -9,6 +9,7 @@ public class SimonSays : MonoBehaviour
     private int index = 0;
     public enum Colors {red, blue, green, yellow};
     private Colors[] expected;
+    private bool already_played = false;
 
     public GameObject triangle;
     public Transform spawn_position;
@@ -22,17 +23,27 @@ public class SimonSays : MonoBehaviour
         Colors[] c = new Colors[sequence_size];
         for(int i = 0; i < sequence_size; i++){
             c[i] = (Colors)Random.Range(0, 4);
-            Debug.Log(c[i]);
         }
         return c;
     }
 
-    void PlaySequence(Colors[] c) {
+    IEnumerator PlaySequence(Colors[] c) {
         for(int i = 0; i < sequence_size; i++){
             if     (c[i] == Colors.red   ) playRed.Invoke();
             else if(c[i] == Colors.blue  ) playBlue.Invoke();
             else if(c[i] == Colors.green ) playGreen.Invoke();
             else if(c[i] == Colors.yellow) playYellow.Invoke();
+            yield return new WaitForSeconds(.6f);
+        }
+    }
+
+    IEnumerator PlaySequenceWin() {
+        for(int i = 0; i < 10; i++){
+            playRed.Invoke();
+            playBlue.Invoke();
+            playGreen.Invoke();
+            playYellow.Invoke();
+            yield return new WaitForSeconds(.2f);
         }
     }
 
@@ -41,17 +52,25 @@ public class SimonSays : MonoBehaviour
 
         Colors[] c = GenerateNewSequence();
         expected = c;
-        PlaySequence(c);
+        StartCoroutine(PlaySequence(c));
     }
 
     public void ReceiveInput(string input) {
-        if(input != expected[index].ToString()) {
-            index = 0;
-            PlaySequence(expected);
+        if(already_played) {
             return;
         }
-        if(index == sequence_size) {
+
+        if(input != expected[index].ToString()) {
+            index = 0;
+            StartCoroutine(PlaySequence(expected));
+            return;
+        }
+        if(index == sequence_size-1) {
             Instantiate(triangle, spawn_position.position, Quaternion.identity);
+            StartCoroutine(PlaySequenceWin());
+            already_played = true;
+        } else {
+            index++;
         }
     }
 }
