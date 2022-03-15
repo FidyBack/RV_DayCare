@@ -83,7 +83,7 @@ public class SimonSays : MonoBehaviour
             playGreen.Invoke();
             playYellow.Invoke();
             StartCoroutine(PlaySequence(expected));
-            flagErro = 0;
+            // flagErro = 0;
             return;
         }
         if(index == sequence_size-1) {
