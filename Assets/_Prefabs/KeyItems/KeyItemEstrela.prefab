@@ -55,6 +55,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: KeyItemEstrela
       objectReference: {fileID: 0}
+    - target: {fileID: 8607124383199420505, guid: 1b32a65766535744f81a83a62fe7b63c, type: 3}
+      propertyPath: m_TagString
+      value: estrela
+      objectReference: {fileID: 0}
     - target: {fileID: 8607124383199420511, guid: 1b32a65766535744f81a83a62fe7b63c, type: 3}
       propertyPath: m_UseGravity
       value: 0

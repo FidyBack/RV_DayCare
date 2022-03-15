@@ -13,7 +13,7 @@ public class ChestLid : MonoBehaviour
     private bool open = false;
     private float angle = 0f;
     private int current_keys = 0;
-    private int max_keys = 3;
+    private int max_keys = 4;
 
     // Rotate the lid until it`s angle is equal to max_angle
     private void OpenLid() {

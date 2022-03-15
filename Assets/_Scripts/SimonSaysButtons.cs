@@ -17,7 +17,7 @@ public class SimonSaysButtons : MonoBehaviour
         // Change the color of the button
         GetComponent<Renderer>().material.color = onColor;
         // Play the sound
-        // GetComponent<AudioSource>().Play();
+        GetComponent<AudioSource>().Play();
 
         // Wait for the sound to finish playing
         StartCoroutine(WaitForSound());
@@ -25,8 +25,7 @@ public class SimonSaysButtons : MonoBehaviour
 
     IEnumerator WaitForSound()
     {
-        // yield return new WaitForSeconds(GetComponent<AudioSource>().clip.length);
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(GetComponent<AudioSource>().clip.length);
         // Change the color of the button
         GetComponent<Renderer>().material.color = offColor;
     }

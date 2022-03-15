@@ -28,6 +28,7 @@ public class SimonSays : MonoBehaviour
     }
 
     IEnumerator PlaySequence(Colors[] c) {
+        yield return new WaitForSeconds(2.5f);
         for(int i = 0; i < sequence_size; i++){
             if     (c[i] == Colors.red   ) playRed.Invoke();
             else if(c[i] == Colors.blue  ) playBlue.Invoke();
@@ -47,8 +48,23 @@ public class SimonSays : MonoBehaviour
         }
     }
 
+    IEnumerator Welcome() {
+        for(int i = 0; i < 2; i++){
+            playRed.Invoke();
+            yield return new WaitForSeconds(.25f);
+            playBlue.Invoke();
+            yield return new WaitForSeconds(.25f);
+            playGreen.Invoke();
+            yield return new WaitForSeconds(.25f);
+            playYellow.Invoke();
+            yield return new WaitForSeconds(.25f);
+        }
+    }
+
     void OnTriggerEnter(Collider collider) {
         if(collider.gameObject.tag != "Player") return;
+
+        StartCoroutine(Welcome());
 
         Colors[] c = GenerateNewSequence();
         expected = c;
@@ -62,7 +78,12 @@ public class SimonSays : MonoBehaviour
 
         if(input != expected[index].ToString()) {
             index = 0;
+            playRed.Invoke();
+            playBlue.Invoke();
+            playGreen.Invoke();
+            playYellow.Invoke();
             StartCoroutine(PlaySequence(expected));
+            flagErro = 0;
             return;
         }
         if(index == sequence_size-1) {

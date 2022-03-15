@@ -63,6 +63,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8607124383199420504, guid: 1b32a65766535744f81a83a62fe7b63c, type: 3}
+      propertyPath: attachmentFlags
+      value: 84
+      objectReference: {fileID: 0}
     - target: {fileID: 8607124383199420505, guid: 1b32a65766535744f81a83a62fe7b63c, type: 3}
       propertyPath: m_Icon
       value: 
